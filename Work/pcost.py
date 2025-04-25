@@ -2,14 +2,21 @@
 #
 # Exercise 1.27
 
-total_cost = 0.0
+def portfolio_cost(filename):
+    '''
+    Computes the total cost (shares*price) of a portfolio file
+    '''
+    total_cost = 0.0
 
-with open('Data/portfolio.csv', 'rt') as f:
-    headers = next(f)
-    for line in f:
-        row = line.split(',')
-        shares = int(row[1])
-        price = float(row[2])
-        total_cost += shares * price
+    with open(filename, 'rt') as f:
+        headers = next(f)
+        for line in f:
+            row = line.split(',')
+            shares = int(row[1])
+            price = float(row[2])
+            total_cost += shares * price
+            
+    return total_cost
 
-print(f'Total cost {total_cost:0.2f}')
+cost = portfolio_cost('Data/portfolio.csv')
+print('Total cost:', cost)
