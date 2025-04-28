@@ -65,8 +65,11 @@ report = make_report(portfolio, prices)
 headers = ('Name', 'Shares', 'Price', 'Change')
 print('%10s %10s %10s %10s' % headers)
 print(('-' * 10 + ' ') * len(headers))
-for row in report:
-    print('%10s %10d %10.2f %10.2f' % row)
+#for row in report:
+#    print('%10s %10d $%10.2f %10.2f' % row)
+for name, shares, price, change in report:
+    price = f'${price:.2f}'
+    print(f'{name:>10s} {shares:10d} {price:>10s} {change:10.2f}')
 
 # Calculate the total cost of the portfolio
 total_cost = 0.0
