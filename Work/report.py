@@ -24,3 +24,18 @@ def read_portfolio(filename):
             portfolio.append(stock)
         
     return portfolio
+
+def read_prices(filename):
+    '''
+    Read a CSV file of price data into a dict mapping names to prices.
+    '''
+    prices = {}
+
+    with open(filename, 'rt') as f:
+        rows = csv.reader(f)
+
+        for row in rows:
+            if row:
+                prices[row[0]] = float(row[1])
+    
+    return prices
