@@ -14,7 +14,6 @@ def read_portfolio(filename):
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
         headers = next(rows)
-
         for row in rows:
             stock = {
                     'name' : row[0],
@@ -33,9 +32,28 @@ def read_prices(filename):
 
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
-
         for row in rows:
-            if row:
+            try:
                 prices[row[0]] = float(row[1])
+            except IndexError:
+                pass
     
     return prices
+
+portfolio = read_portfolio('Data/portfolio.csv')
+prices = read_prices('Data/prices.csv')
+
+# Calculate the total cost of the portfolio
+total_cost = 0.0
+for s in portfolio:
+    total_cost += s['price']*s['shares']
+
+print(f'Total cost {total_cost:0.2f}')
+
+# Compute the current value of the portfolio
+total_value = 0.0
+for s in portfolio:
+    total_value += prices[s['name']]*s['shares']
+
+print(f'Current value {total_value:0.2f}')
+print(f'Gain/loss {total_value - total_cost:0.2f}')
