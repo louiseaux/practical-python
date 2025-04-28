@@ -14,14 +14,14 @@ def portfolio_cost(filename):
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
         headers = next(rows)
-        for row in rows:
+        for rowno, row in enumerate(rows, start=1):
             try:
                 shares = int(row[1])
                 price = float(row[2])
                 total_cost += shares * price
             # This catches errors in int() and float() conversions above
             except ValueError:
-                print('Bad row:', row)
+                print(f"Row {rowno}: Bad row: {row}")
             
     return total_cost
 
