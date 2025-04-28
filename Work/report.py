@@ -40,8 +40,30 @@ def read_prices(filename):
     
     return prices
 
+def make_report(portfolio, prices):
+    '''
+    Make a list of (name, shares, price, change) tuples given a portfolio list
+    and prices dictionary.
+    '''
+    report = []
+
+    for stock in portfolio:
+        current_price = prices[stock['name']]
+        change = current_price - stock['price']
+        summary = (stock['name'], stock['shares'], current_price, change)
+        report.append(summary)
+    return report
+
+# Read data files and create the report data  
 portfolio = read_portfolio('Data/portfolio.csv')
 prices = read_prices('Data/prices.csv')
+
+# Generate the report data
+report = make_report(portfolio, prices)
+
+# Output the report
+for r in report:
+    print(r)
 
 # Calculate the total cost of the portfolio
 total_cost = 0.0
