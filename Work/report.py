@@ -62,8 +62,8 @@ prices = read_prices('Data/prices.csv')
 report = make_report(portfolio, prices)
 
 # Output the report
-for r in report:
-    print(r)
+for row in report:
+    print('%10s %10d %10.2f %10.2f' % row)
 
 # Calculate the total cost of the portfolio
 total_cost = 0.0
