@@ -5,13 +5,22 @@
 import csv
 
 def read_portfolio(filename):
+    '''
+    Read a stock portfolio file into a list of dictionaries with keys
+    name, shares, and price.
+    '''
     portfolio = []
 
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
         headers = next(rows)
+
         for row in rows:
-            holding = (row[0], int(row[1]), float(row[2]))
-            portfolio.append(holding)
+            stock = {
+                    'name' : row[0],
+                    'shares' : int(row[1]),
+                    'price' : float(row[2])
+            }
+            portfolio.append(stock)
         
     return portfolio
