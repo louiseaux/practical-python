@@ -56,34 +56,20 @@ def make_report(portfolio, prices):
         report.append(summary)
     return report
 
+def print_report(reportdata):
+    '''
+    Print a nicely formated table from a list of (name, shares, price, change) tuples.
+    '''
+    headers = ('Name', 'Shares', 'Price', 'Change')
+    print('%10s %10s %10s %10s' % headers)
+    print(('-' * 10 + ' ') * len(headers))
+    for row in reportdata:
+        print('%10s %10d %10.2f %10.2f' % row)
+
 # Read data files and create the report data  
 portfolio = read_portfolio('Data/portfolio.csv')
 prices = read_prices('Data/prices.csv')
 
 # Generate the report data
 report = make_report(portfolio, prices)
-
-# Output the report
-headers = ('Name', 'Shares', 'Price', 'Change')
-print('%10s %10s %10s %10s' % headers)
-print(('-' * 10 + ' ') * len(headers))
-#for row in report:
-#    print('%10s %10d $%10.2f %10.2f' % row)
-for name, shares, price, change in report:
-    price = f'${price:.2f}'
-    print(f'{name:>10s} {shares:10d} {price:>10s} {change:10.2f}')
-
-# Calculate the total cost of the portfolio
-total_cost = 0.0
-for s in portfolio:
-    total_cost += s['price']*s['shares']
-
-print(f'Total cost {total_cost:0.2f}')
-
-# Compute the current value of the portfolio
-total_value = 0.0
-for s in portfolio:
-    total_value += prices[s['name']]*s['shares']
-
-print(f'Current value {total_value:0.2f}')
-print(f'Gain/loss {total_value - total_cost:0.2f}')
+print_report(report)
