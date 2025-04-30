@@ -56,4 +56,7 @@ def portfolio_report(portfolio_filename, prices_filename):
     # Print it out
     print_report(report)
 
-portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
+def main(args):
+    if len(args) != 3:
+        raise SystemExit(f'Usage: {args[0]} ' 'portfile pricefile')
+    portfolio_report(args[1], args[2])
