@@ -60,3 +60,7 @@ def main(args):
     if len(args) != 3:
         raise SystemExit(f'Usage: {args[0]} ' 'portfile pricefile')
     portfolio_report(args[1], args[2])
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
