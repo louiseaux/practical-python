@@ -23,7 +23,7 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','
             headers = select
 
         records = []
-        for row in rows:
+        for rowno, row in enumerate(rows, 1):
             if not row:     # Skip rows with no data
                 continue
 
@@ -33,7 +33,12 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','
 
             # Apply type conversion to the row
             if types:
-                row = [ func(val) for func, val in zip(types, row) ]
+                try:
+                    row = [ func(val) for func, val in zip(types, row) ]
+                except ValueError as e:
+                    print(f"Row {rowno}: Couldn't convert {row}")
+                    print(f"Row {rowno}: Readon {e}")
+                    continue
             
             # Make a dictionary or a tuple
             if headers:
