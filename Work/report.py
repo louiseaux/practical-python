@@ -2,7 +2,6 @@
 #
 # Exercise 2.4
 
-import csv
 from fileparse import parse_csv
 
 def read_portfolio(filename):
