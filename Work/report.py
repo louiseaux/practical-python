@@ -4,7 +4,7 @@
 
 from fileparse import parse_csv
 from stock import Stock
-from tableformat import TableFormatter
+import tableformat
 
 def read_portfolio(filename):
     '''
@@ -60,7 +60,7 @@ def portfolio_report(portfoliofile, pricefile):
     report = make_report(portfolio, prices)
 
     # Print it out
-    formatter = TableFormatter()
+    formatter = tableformat.HTMLTableFormatter()
     print_report(report, formatter)
 
 def main(args):
