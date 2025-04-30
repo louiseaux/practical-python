@@ -2,9 +2,7 @@
 #
 # Exercise 1.27
 
-import csv
 from report import read_portfolio
-import sys
 
 def portfolio_cost(filename):
     '''
