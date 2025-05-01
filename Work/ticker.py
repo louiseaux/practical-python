@@ -24,6 +24,11 @@ def parse_stock_data(lines):
     rows = make_dicts(rows, ['name', 'price', 'change'])
     return rows
 
+def filter_symbols(rows, names):
+    for row in rows:
+        if row['name'] in names:
+            yield row
+
 if __name__ == '__main__':
     lines = follow('Data/stocklog.csv')
     rows = parse_stock_data(lines)
