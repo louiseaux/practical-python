@@ -6,6 +6,7 @@ class Stock:
     '''
     An instance of a stock holding consisting of name, shares, and price.
     '''
+    __slots__ = ('name', '_shares', 'price')
     def __init__(self, name, shares, price):
         self.name   = name
         self.shares = shares
