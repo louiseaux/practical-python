@@ -2,8 +2,10 @@
 #
 # Exercise 6.10
 
-from follow import follow
 import csv
+from follow import follow
+import report
+import tableformat
 
 def select_columns(rows, indices):
     for row in rows:
@@ -29,8 +31,21 @@ def filter_symbols(rows, names):
         if row['name'] in names:
             yield row
 
-if __name__ == '__main__':
-    lines = follow('Data/stocklog.csv')
+def ticker(portfile, logfile, fmt):
+    portfolio = report.read_portfolio(portfile)
+    lines = follow(logfile)
     rows = parse_stock_data(lines)
+    rows = filter_symbols(rows, portfolio)
+    formatter = tableformat.create_formatter(fmt)
+    formatter.headings(['Name', 'Price', 'Change'])
     for row in rows:
-        print(row)
+        formatter.row([ row['name'], f"{row['price']:0.2f}", f"{row['change']:0.2f}" ])
+
+def main(args):
+    if len(args) != 4:
+        raise SystemExit(f'Usage: {args[0]} ' 'portfoliofile logfile fmt')
+    ticker(args[1], args[2], args[3])
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
