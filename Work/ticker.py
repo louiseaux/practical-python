@@ -26,16 +26,11 @@ def parse_stock_data(lines):
     rows = make_dicts(rows, ['name', 'price', 'change'])
     return rows
 
-def filter_symbols(rows, names):
-    for row in rows:
-        if row['name'] in names:
-            yield row
-
 def ticker(portfile, logfile, fmt):
     portfolio = report.read_portfolio(portfile)
     lines = follow(logfile)
     rows = parse_stock_data(lines)
-    rows = filter_symbols(rows, portfolio)
+    rows = (row for row in rows if row['name'] in portfolio)
     formatter = tableformat.create_formatter(fmt)
     formatter.headings(['Name', 'Price', 'Change'])
     for row in rows:
