@@ -15,7 +15,7 @@ def read_portfolio(filename):
     with open(filename, 'rt') as lines:
         portdicts = parse_csv(lines, select=['name', 'shares', 'price'], types=[str, int, float])
     
-    portfolio = [ Stock(d['name'], d['shares'], d['price']) for d in portdicts ]
+    portfolio = [ Stock(**d) for d in portdicts ]
     return Portfolio(portfolio)
 
 def read_prices(filename):
