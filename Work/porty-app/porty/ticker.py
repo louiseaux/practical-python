@@ -3,9 +3,9 @@
 # Exercise 6.10
 
 import csv
-from follow import follow
-import report
-import tableformat
+from .follow import follow
+from . import report
+from . import tableformat
 
 def select_columns(rows, indices):
     for row in rows:
@@ -16,8 +16,7 @@ def convert_types(rows, types):
         yield [ func(val) for func, val in zip(types, row) ]
 
 def make_dicts(rows, headers):
-    for row in rows:
-        yield dict(zip(headers, row))
+    return (dict(zip(headers, row)) for row in rows)
 
 def parse_stock_data(lines):
     rows = csv.reader(lines)

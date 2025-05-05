@@ -2,7 +2,7 @@
 #
 # Exercise 8.1
 
-import stock
+from . import stock
 import unittest
 
 class TestStock(unittest.TestCase):
